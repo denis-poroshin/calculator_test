@@ -28,7 +28,7 @@ public class Calculator {
     }
     public String divide(double valueOne, double valueTwo){
         if(valueTwo == 0){
-            throw new ArithmeticException();
+            throw new IllegalArgumentException();
         }
         return valueOne + " / " + valueTwo +
                 " = " + (valueOne / valueTwo);

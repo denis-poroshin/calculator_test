@@ -17,9 +17,9 @@ public class CalculatorService {
         return "<h1>Добро пожаловать в калькулятор</h>" +
                 "<h2>Информация:</h2>" +
                 " <p>/calculator/plus?valueOne=введите свое число&valueTwo=введите свое число - должен сложить valueOne и valueTwo</p>" +
-                " <p>/calculator/minus?valueOne=введите свое число&num2=введите свое число - должен вычесть из valueOne valueTwo</p>" +
-                " <p>/calculator/multiply?valueOne=введите свое число&num2=введите свое число - должен умножить valueOne на valueTwo" +
-                " <p>/calculator/divide?valueOne=введите свое число&num2=введите свое число - должен разделить valueOne на valueTwo (деление на ноль запрещено)";
+                " <p>/calculator/minus?valueOne=введите свое число&valueTwo=введите свое число - должен вычесть из valueOne valueTwo</p>" +
+                " <p>/calculator/multiply?valueOne=введите свое число&valueTwo=введите свое число - должен умножить valueOne на valueTwo" +
+                " <p>/calculator/divide?valueOne=введите свое число&valueTwo=введите свое число - должен разделить valueOne на valueTwo (деление на ноль запрещено)";
     }
     public String plus(double valueOne, double valueTwo){
 
