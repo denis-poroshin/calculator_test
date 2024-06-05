@@ -1,53 +1,63 @@
 package pro.sky.skyprocalculatortest;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CalculatorServiceTest {
-    private double valueOne = 5;
-    private double valueTwo = -20;
-    private double valueOne1 = 10;
-    private double valueTwo1 = -20;
+    private static double valueOne = 15;
+    private static double valueTwo = 1;
+    private static double valueOne1 = 10;
+    private static double valueTwo1 = -20;
     CalculatorService calculatorService = new CalculatorService();
-    CalculatorService calculatorService1 = new CalculatorService();
-    @Test
-    public void divisionCheckValue(){
-        try {
-            calculatorService.divide(valueOne, valueTwo);
-            calculatorService1.divide(valueOne1, valueTwo1);
+    @ParameterizedTest // Почему лучше использовать assertThrows, который выкидывает ошибку если исключение небыло найдено? Приходится подставлять 0, чтобы сиключение не было выброшено исключение
+    @MethodSource("provideParamsTests")
+    public void pr(double argumentOne, double argumentTwo){
+        assertThrows(IllegalArgumentException.class,
+                () -> calculatorService.divide(argumentOne, argumentTwo));
 
-        }catch ( IllegalArgumentException e){
-            throw new IllegalArgumentException();
-        }
     }
-    @Test
-    public void plusCheckValue(){
-        try {
-            calculatorService.plus(valueOne, valueTwo);
-            calculatorService1.divide(valueOne1, valueTwo1);
-
-        }catch ( IllegalArgumentException e){
-            throw new IllegalArgumentException();
-        }
+    @ParameterizedTest // Может лучше использовать assertDoesNotThrow, который проверяет на наличие исключений?
+    @MethodSource("provideParamsTests")
+    public void prt(double argumentOne, double argumentTwo){
+        Assertions.assertDoesNotThrow(
+                () -> calculatorService.divide(argumentOne, argumentTwo));
     }
-    @Test
-    public void minusCheckValue(){
-        try {
-            calculatorService.minus(valueOne, valueTwo);
-            calculatorService1.divide(valueOne1, valueTwo1);
 
-        }catch ( IllegalArgumentException e){
-            throw new IllegalArgumentException();
-        }
+
+    @ParameterizedTest
+    @MethodSource("provideParamsTests")
+    public void divisionCheckValue(double argumentOne, double argumentTwo){
+        Assertions.assertNotNull(calculatorService.divide(argumentOne, argumentTwo));
+
     }
-    @Test
-    public void multiplyCheckValue(){
-        try {
-            calculatorService.multiply(valueOne, valueTwo);
-            calculatorService1.divide(valueOne1, valueTwo1);
+    @ParameterizedTest
+    @MethodSource("provideParamsTests")
+    public void plusCheckValue(double argumentOne, double argumentTwo){
+        Assertions.assertNotNull(calculatorService.plus(argumentOne, argumentTwo));
+    }
 
-        }catch ( IllegalArgumentException e){
-            throw new IllegalArgumentException();
-        }
+    @ParameterizedTest
+    @MethodSource("provideParamsTests")
+    public void minusCheckValue(double argumentOne, double argumentTwo){
+        Assertions.assertNotNull(calculatorService.minus(argumentOne, argumentTwo));
+    }
+    @ParameterizedTest
+    @MethodSource("provideParamsTests")
+    public void multiplyCheckValue(double argumentOne, double argumentTwo){
+        Assertions.assertNotNull(calculatorService.multiply(argumentOne, argumentTwo));
+    }
+
+    public static Stream<Arguments> provideParamsTests(){
+        return Stream.of(
+                Arguments.of(valueOne, valueTwo),
+                Arguments.of(valueOne1, valueTwo1)
+        );
     }
 
 
